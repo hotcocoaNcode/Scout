@@ -40,7 +40,7 @@ public class GlobalUserIndex {
                     userDict.put(words[0], new WordVec(words[1]));
                 }
                 fileIn.close();
-                users.add(new DiscordUser(s.substring(0, s.length()-4), userDict));
+                users.add(new DiscordUser(s.substring(3, s.length()-4), userDict));
                 System.out.println("Got " + users.get(users.size()-1) + " from disk");
             } catch (FileNotFoundException e) {
                 System.out.println("FileNotFound parsing " + s);
