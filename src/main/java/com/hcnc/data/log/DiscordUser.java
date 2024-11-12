@@ -42,21 +42,21 @@ public class DiscordUser {
 
     public void saveToFile() {
         try {
-            File userFile = new File(user + ".txt");
+            File userFile = new File("db_" + user + ".txt");
             if (userFile.createNewFile()) {
                 System.out.println("File for user " + user + " created");
             }
-            FileWriter writer = new FileWriter(user+".txt");
+            FileWriter writer = new FileWriter("db_"+user+".txt");
             writer.write(user + "\n" + words.toString());
             writer.close();
         } catch (IOException e) {
-            System.out.println("An error occurred writing " + user + ".txt");
-            e.printStackTrace();
+            System.out.println("An error occurred writing db_" + user + ".txt");
         }
     }
 
     public void parseMessage(String message) {
         if (message.contains("http")) return; // Shitty work around but you know what they say in france
+        message = message.replaceAll("'", ""); // DUCT TAPE IN PROD
         for (String ideaBlock : message.split("\\p{Punct}")) {
             parseSentence(ideaBlock);
         }

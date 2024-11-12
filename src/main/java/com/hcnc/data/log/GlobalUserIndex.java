@@ -23,6 +23,8 @@ public class GlobalUserIndex {
         ArrayList<String> userfiles = new ArrayList<>(Stream.of(Objects.requireNonNull(new File(".").listFiles()))
                 .filter(file -> !file.isDirectory())
                 .map(File::getName)
+                .filter(name -> name.startsWith("db_"))
+                .filter(name -> name.endsWith(".txt"))
                 .toList());
         for (String s : userfiles) {
             try {

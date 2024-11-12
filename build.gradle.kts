@@ -1,9 +1,14 @@
 plugins {
     id("java")
+    application
 }
 
 group = "com.hcnc"
 version = "1.0-SNAPSHOT"
+
+application {
+    mainClass = "com.hcnc.Main"
+}
 
 repositories {
     mavenCentral()
