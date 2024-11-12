@@ -56,7 +56,12 @@ public class DiscordUser {
 
     public void parseMessage(String message) {
         if (message.contains("http")) return; // Shitty work around but you know what they say in france
-        message = message.replaceAll("'", ""); // DUCT TAPE IN PROD
+        message = message // DUCT TAPE IN PROD
+                .replaceAll("'", "")
+                .replaceAll("\\*", "")
+                .replaceAll("-", " ")
+                .replaceAll("_", " ")
+                .replaceAll("#", "");
         for (String ideaBlock : message.split("\\p{Punct}")) {
             parseSentence(ideaBlock);
         }
