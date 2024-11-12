@@ -31,9 +31,14 @@ public class GlobalUserIndex {
                 File userfile = new File(s);
                 Scanner fileIn = new Scanner(userfile);
                 fileIn.nextLine();
-                String lineWeCareAbout = fileIn.nextLine();
-                lineWeCareAbout = lineWeCareAbout.substring(1, lineWeCareAbout.length() - 1);
-                ArrayList<String> splitEntries = new ArrayList<>(Arrays.stream(lineWeCareAbout.split(", ")).toList());
+                StringBuilder readFile = new StringBuilder();
+                while (fileIn.hasNextLine()) {
+                    readFile.append(fileIn.nextLine());
+                }
+                String linesWeCareAbout = readFile.substring(1, readFile.length() - 1);
+                //String linesWeCareAbout = fileIn.nextLine();
+                //linesWeCareAbout = linesWeCareAbout.substring(1, linesWeCareAbout.length() - 1);
+                ArrayList<String> splitEntries = new ArrayList<>(Arrays.stream(linesWeCareAbout.toString().split(", ")).toList());
                 HashMap<String, WordVec> userDict = new HashMap<>();
                 for (String entry : splitEntries) {
                     String[] words = entry.split("=");
@@ -41,9 +46,9 @@ public class GlobalUserIndex {
                 }
                 fileIn.close();
                 users.add(new DiscordUser(s.substring(3, s.length()-4), userDict));
-                System.out.println("Got " + users.get(users.size()-1) + " from disk");
-            } catch (FileNotFoundException e) {
-                System.out.println("FileNotFound parsing " + s);
+                System.out.println("Got " + users.get(users.size()-1) + " from disk with " + userDict.size() + " logged words");
+            } catch (Exception e) {
+                System.out.println("Exception parsing " + s + ".");
             }
         }
         System.out.println("Got " + users.size() + " total");
