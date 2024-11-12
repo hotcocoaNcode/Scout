@@ -1,13 +1,15 @@
 # Scout
 > *Become the NSA of your friend group.*
 ---
-Scout is a Fun Little Discord Bot™ that half-asses a word2vec implementation (not actually word2vec at all, but close enough that you can get the Funny Graphs out of it) so you can track your friends' speech patterns and tendencies on the internet.
+Scout is a Fun Little Discord Bot™ very loosely inspired by the methodology of word2vec (not actually word2vec at all, but close enough that you can get the Funny Graphs out of it) so you can track your friends' speech patterns and tendencies on the internet.
 ## Why would you ever do this?
 For fun.
 ## Are you sociopathic?
 Maybe. *\*evil grin**
 ## How does it work?
-It's *lightly inspired* by the CBOW (continuous bag of words) method from word2vec. Essentially messages are broken up into idea groups (by punctuation) and each occurrence of a word in that group is added to a counter per word. That's probably a horrible way of explaining it, so basically;
+It's *lightly inspired* by the CBOW (continuous bag of words) method from word2vec, but then without the fancy math or neural networks.
+
+Essentially, messages are broken up into idea groups (by punctuation) and each occurrence of a word in that group is added to a counter per word. That's probably a horrible way of explaining it, so basically;
 
 `Snow is pretty cool, but I like the rain.`
 
@@ -40,6 +42,8 @@ However, my source for that is I made it up and it's likely BS. I haven't tested
 
 ## Important notes
 
-This project is likely highly immoral. Don't deploy this if you haven't asked your friends or people in the server if it's okay. It's also likely motivated by my lack of understanding other people's emotions, and my therapist thinks I'm autistic, so take from that what you will.
-
-Also this is really bad code I wrote it in like 2 hours on a school night to procrastinate spanish homework lol don't try to learn anything from this
+1. This project is likely highly immoral. 
+2. Don't deploy this if you haven't asked your friends or people in the server if it's okay. 
+3. This project was likely motivated by my lack of understanding other people's emotions, and my therapist thinks I'm autistic, so take from that what you will.
+4. I am using word2vec as a buzzword here. I don't know what a log probability or a corpus is and at this point I'm too scared to ask. I think I should come back to this in a year when I know more Calculus, if that even helps.
+5. This is really bad code I wrote it in like 2 hours on a school night to procrastinate spanish homework lol don't try to learn anything from this
