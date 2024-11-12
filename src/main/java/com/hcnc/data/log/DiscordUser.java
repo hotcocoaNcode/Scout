@@ -26,7 +26,7 @@ public class DiscordUser {
 
     private void parseSentence(String sentence) {
         ArrayList<String> sentenceParsed = new ArrayList<>(Arrays.stream(sentence.split(" ")).toList());
-        sentenceParsed.replaceAll(s -> s.toLowerCase().replaceAll("\\p{Punct}", ""));
+        sentenceParsed.replaceAll(String::toLowerCase);
         sentenceParsed.removeAll(sentenceParsed.stream().filter(String::isEmpty).toList());
         for (String word : sentenceParsed) {
             if (!words.containsKey(word)) {
@@ -55,14 +55,15 @@ public class DiscordUser {
     }
 
     public void parseMessage(String message) {
-        if (message.contains("http") || message.contains("```")) return; // Shitty work around but you know what they say in france
-        message = message // DUCT TAPE IN PROD
-                .replaceAll("'", "")
-                .replaceAll("\\*", "")
-                .replaceAll("-", " ")
-                .replaceAll("_", " ")
-                .replaceAll("#", "");
-        for (String ideaBlock : message.split("\\p{Punct}")) {
+        if (message.contains("http") || message.contains("`")) return; // Shitty work around but you know what they say in france
+        /*
+        message = message.replaceAll("[.,~!?()*&^%$#@\"'=+]", "");
+        message = message.replaceAll("[/\\\\-]", " ");
+         */
+        message = message // (somewhat less) DUCT TAPE IN PROD
+                .replaceAll(" _|_ |[-/\\\\]", " ")
+                .replaceAll("[*()'#{}:;=+|<>]|_$", "");
+        for (String ideaBlock : message.split("[.,!?\"]")) {
             parseSentence(ideaBlock);
         }
         for (WordVec wordVec : words.values()) {
