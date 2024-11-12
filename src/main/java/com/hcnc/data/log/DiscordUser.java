@@ -55,7 +55,7 @@ public class DiscordUser {
     }
 
     public void parseMessage(String message) {
-        if (message.contains("http")) return; // Shitty work around but you know what they say in france
+        if (message.contains("http") || message.contains("```")) return; // Shitty work around but you know what they say in france
         message = message // DUCT TAPE IN PROD
                 .replaceAll("'", "")
                 .replaceAll("\\*", "")
