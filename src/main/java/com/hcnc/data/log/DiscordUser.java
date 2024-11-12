@@ -1,5 +1,8 @@
 package com.hcnc.data.log;
 
+import com.hcnc.data.log.conversational.ConversationTracker;
+import com.hcnc.data.log.text.WordVec;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,6 +14,8 @@ public class DiscordUser {
     public String user;
     public HashMap<String, WordVec> words;
     public ArrayList<String> userDict;
+    public WordVec otherUserCounts;
+    public long lastMessageUnixMS;
 
     public DiscordUser(String user) {
         this.user = user;
@@ -47,7 +52,7 @@ public class DiscordUser {
                 System.out.println("File for user " + user + " created");
             }
             FileWriter writer = new FileWriter("db_"+user+".txt");
-            writer.write(user + "\n" + words.toString());
+            writer.write(otherUserCounts.toString() + "\n" + words.toString());
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred writing db_" + user + ".txt");
@@ -69,6 +74,21 @@ public class DiscordUser {
         for (WordVec wordVec : words.values()) {
             wordVec.updateDictionary(userDict);
         }
+    }
+
+    public void relationEvent() {
+        // Under a 10 minute message gap
+        if (ConversationTracker.messageMS - lastMessageUnixMS < 1000L*600L) {
+            otherUserCounts.wordOccurrence(ConversationTracker.lastTalkedUser);
+        }
+        ConversationTracker.messageMS = lastMessageUnixMS;
+        ConversationTracker.lastTalkedUser = user;
+    }
+
+    public void messageEvent(String message) {
+        lastMessageUnixMS = System.currentTimeMillis();
+        parseMessage(message);
+        relationEvent();
         saveToFile();
     }
 

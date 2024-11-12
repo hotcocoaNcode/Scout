@@ -1,7 +1,8 @@
 package com.hcnc.data.log;
 
+import com.hcnc.data.log.text.WordVec;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -38,7 +39,7 @@ public class GlobalUserIndex {
                 String linesWeCareAbout = readFile.substring(1, readFile.length() - 1);
                 //String linesWeCareAbout = fileIn.nextLine();
                 //linesWeCareAbout = linesWeCareAbout.substring(1, linesWeCareAbout.length() - 1);
-                ArrayList<String> splitEntries = new ArrayList<>(Arrays.stream(linesWeCareAbout.toString().split(", ")).toList());
+                ArrayList<String> splitEntries = new ArrayList<>(Arrays.stream(linesWeCareAbout.split(", ")).toList());
                 HashMap<String, WordVec> userDict = new HashMap<>();
                 for (String entry : splitEntries) {
                     String[] words = entry.split("=");
@@ -54,7 +55,7 @@ public class GlobalUserIndex {
         System.out.println("Got " + users.size() + " total");
     }
 
-    public static void parseMessage(String user, String message) {
-        users.get(indexUser(user)).parseMessage(message);
+    public static void messageEvent(String user, String message) {
+        users.get(indexUser(user)).messageEvent(message);
     }
 }

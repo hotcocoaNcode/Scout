@@ -1,7 +1,8 @@
-package com.hcnc.data.log;
+package com.hcnc.data.log.text;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 public class WordVec extends HashMap<String, Integer> {
 
@@ -30,7 +31,17 @@ public class WordVec extends HashMap<String, Integer> {
         return normalized;
     }
 
-    void wordOccurrence(String word) {
+    public Vector<Double> getMeaningVector(List<String> dictionary) {
+        updateDictionary(dictionary);
+        Vector<Double> meaningVector = new Vector<>();
+        HashMap<String, Double> normalizedVector = this.normalizedVector();
+        for (String key : dictionary) {
+            meaningVector.add(normalizedVector.get(key));
+        }
+        return meaningVector;
+    }
+
+    public void wordOccurrence(String word) {
         if (this.containsKey(word)) {
             this.replace(word, this.get(word) + 1);
         } else {
@@ -38,7 +49,7 @@ public class WordVec extends HashMap<String, Integer> {
         }
     }
 
-    void updateDictionary(List<String> words){
+    public void updateDictionary(List<String> words){
         for (String word : words) {
             if (!this.containsKey(word)) {
                 this.put(word, 0);
