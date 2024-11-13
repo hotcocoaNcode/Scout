@@ -21,12 +21,14 @@ public class DiscordUser {
         this.user = user;
         this.words = new HashMap<>();
         this.userDict = new ArrayList<>();
+        this.otherUserCounts = new WordVec();
     }
 
     public DiscordUser(String user, HashMap<String, WordVec> words) {
         this.user = user;
         this.words = words;
         this.userDict = new ArrayList<>(words.keySet().stream().toList());
+        this.otherUserCounts = new WordVec();
     }
 
     private void parseSentence(String sentence) {
@@ -68,7 +70,7 @@ public class DiscordUser {
         message = message // (somewhat less) DUCT TAPE IN PROD
                 .replaceAll(" _|_ |[-/\\\\]", " ")
                 .replaceAll("[*()'#{}:;=+|<>]|_$", "");
-        for (String ideaBlock : message.split("[.,!?\"]")) {
+        for (String ideaBlock : message.split("[.,!?\"…]")) {
             parseSentence(ideaBlock);
         }
         for (WordVec wordVec : words.values()) {
