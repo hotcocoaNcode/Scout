@@ -69,7 +69,7 @@ public class DiscordUser {
          */
         message = message // (somewhat less) DUCT TAPE IN PROD
                 .replaceAll(" _|_ |[-/\\\\]", " ")
-                .replaceAll("[*()'#{}:;=+|<>]|_$", "");
+                .replaceAll("[*()'#{};=+|<>]|_$|:(?!3)", "");
         for (String ideaBlock : message.split("[.,!?\"…]")) {
             parseSentence(ideaBlock);
         }
@@ -80,7 +80,7 @@ public class DiscordUser {
 
     public void relationEvent() {
         // Under a 10 minute message gap
-        if (ConversationTracker.messageMS - lastMessageUnixMS < 1000L*600L) {
+        if (ConversationTracker.messageMS - lastMessageUnixMS < 1000L*600L && !ConversationTracker.lastTalkedUser.isEmpty()) {
             otherUserCounts.wordOccurrence(ConversationTracker.lastTalkedUser);
         }
         ConversationTracker.messageMS = lastMessageUnixMS;
