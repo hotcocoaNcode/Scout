@@ -70,7 +70,7 @@ public class DiscordUser {
         message = message // (somewhat less) DUCT TAPE IN PROD
                 .replaceAll(" _|_ |[-/\\\\]", " ")
                 .replaceAll("[*()'#{};=+|<>]|_$|:(?!3)", "");
-        for (String ideaBlock : message.split("[.,!?\"…]")) {
+        for (String ideaBlock : message.split("[.,!?\"…]|\\R")) {
             parseSentence(ideaBlock);
         }
         for (WordVec wordVec : words.values()) {
