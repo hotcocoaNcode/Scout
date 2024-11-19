@@ -9,6 +9,7 @@ import com.hcnc.data.log.DiscordUser;
 import com.hcnc.data.log.GlobalUserIndex;
 
 import java.util.Optional;
+import java.util.Scanner;
 
 public class UserAnalyzer {
     public static void analyzeUser(String name) {
@@ -20,18 +21,15 @@ public class UserAnalyzer {
                 dataPoints.addPoint(new NamedPoint(key, VecUtil.normalize(user.words.get(key).getMeaningVector(user.userDict))));
             }
             KMeans means = new KMeans(dataPoints, 1);
-            // TODO: Better cluster than just iterative. Instead stop when KMeans reaches some grouping metric (also silhouette based maybe)
-            means.cluster(10);
+            System.out.println("How many iterations should the model try? > ");
+            means.cluster((new Scanner(System.in)).nextInt());
             int i = 0;
             for (CentroidPoint centroid : means.kMeansPoints) {
-                double avgdist = 0;
                 StringBuilder toPrint = new StringBuilder();
                 for (Point p : centroid.points) {
-                    double distance = p.squaredDistance(centroid);
-                    toPrint.append(((NamedPoint) p).name).append(": ").append(distance).append('\n');
-                    avgdist += distance;
+                    toPrint.append(((NamedPoint) p).name).append(": ").append(p.squaredDistance(centroid)).append('\n');
                 }
-                System.out.println("\nCLUSTER " + ++i + ": " + avgdist/centroid.points.size());
+                System.out.println("\nCLUSTER " + ++i + ": " + means.clusterFitness(centroid));
                 System.out.println(toPrint);
             }
         } else {
