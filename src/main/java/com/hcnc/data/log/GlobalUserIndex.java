@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class GlobalUserIndex {
-    static ArrayList<DiscordUser> users = new ArrayList<>();
+    public static ArrayList<DiscordUser> users = new ArrayList<>();
 
     static int indexUser(String name) {
         for (int i = 0; i < users.size(); i++) {

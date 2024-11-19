@@ -1,4 +1,4 @@
-package com.hcnc.data.analyze;
+package com.hcnc.data.analyze.points;
 
 import java.util.Vector;
 
@@ -18,5 +18,9 @@ public interface Point {
 
     default double distance(Point p) {
         return Math.sqrt(squaredDistance(p));
+    }
+
+    default String printablePoint() {
+        return this.getClass().getSimpleName() + "(" + this.getPosition() + ")";
     }
 }

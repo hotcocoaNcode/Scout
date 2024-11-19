@@ -1,5 +1,7 @@
 package com.hcnc.data.analyze;
 
+import com.hcnc.data.analyze.points.Point;
+
 import java.util.Vector;
 
 public class Graph {
@@ -7,6 +9,7 @@ public class Graph {
     int dimensionCount;
 
     public Graph(int dimensionCount) {
+        this.dimensionCount = dimensionCount;
         points = new Vector<>();
     }
 

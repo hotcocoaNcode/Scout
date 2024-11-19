@@ -1,4 +1,4 @@
-package com.hcnc.data.analyze;
+package com.hcnc.data.analyze.points;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -8,9 +8,13 @@ public class CentroidPoint implements Point {
     public ArrayList<Point> points;
 
     public CentroidPoint(Vector<Double> vec) {
+        this.points = new ArrayList<>();
         this.vec = vec;
     }
-    public CentroidPoint(NumericalPoint p) { this.vec = p.vec; }
+    public CentroidPoint(NumericalPoint p) {
+        this.points = new ArrayList<>();
+        this.vec = p.vec;
+    }
 
     @Override
     public Vector<Double> getPosition() {

@@ -34,9 +34,8 @@ public class WordVec extends HashMap<String, Integer> {
     public Vector<Double> getMeaningVector(List<String> dictionary) {
         updateDictionary(dictionary);
         Vector<Double> meaningVector = new Vector<>();
-        HashMap<String, Double> normalizedVector = this.normalizedVector();
         for (String key : dictionary) {
-            meaningVector.add(normalizedVector.get(key));
+            meaningVector.add(Double.valueOf(this.get(key)));
         }
         return meaningVector;
     }
@@ -49,7 +48,12 @@ public class WordVec extends HashMap<String, Integer> {
         }
     }
 
-    public void updateDictionary(List<String> words){
+    /// This is very genuinely a stupid way to do things (see: how i save user files)
+    /// but I don't care because I'm not trying to write good code, I'm trying to
+    /// a. get hours in for highseas,
+    /// b. ease my fears about my friend group drifting apart even though this app does nothing helpful,
+    /// c. be able to run a simple bad probabilistic text prediction model off of individual user data.
+    public void updateDictionary(List<String> words) {
         for (String word : words) {
             if (!this.containsKey(word)) {
                 this.put(word, 0);

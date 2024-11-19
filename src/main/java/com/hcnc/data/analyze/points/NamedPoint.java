@@ -1,4 +1,4 @@
-package com.hcnc.data.analyze;
+package com.hcnc.data.analyze.points;
 
 import java.util.Vector;
 
